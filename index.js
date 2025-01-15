@@ -22,8 +22,8 @@ app.post('/create-checkout-session', async (req, res) => {
 
     const price = await stripe.prices.create({
       product: product.id,
-      unit_amount: priceAmount,
-      currency: 'aed',
+      unit_amount: (priceAmount * 100),
+      currency: 'usd',
       recurring: {
         interval: 'month',
       },
@@ -41,8 +41,8 @@ app.post('/create-checkout-session', async (req, res) => {
       // subscription_data: {
       //   trial_period_days: 7,
       // },
-      success_url: 'http://localhost:3000/success?session_id={CHECKOUT_SESSION_ID}',
-      cancel_url: 'http://localhost:3000/cancel',
+      success_url: process.env.FRONTEND+'success?session_id={CHECKOUT_SESSION_ID}',
+      cancel_url: process.env.FRONTEND,
     });
 
     res.json({ id: session.id });
