@@ -6,7 +6,7 @@ const cors = require('cors');
 dotenv.config();
 
 const app = express();
-const stripe = Stripe("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");
+const stripe = Stripe('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');
 
 app.use(cors());
 app.use(express.json());
