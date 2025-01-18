@@ -61,7 +61,7 @@ app.post('/subscribe', async (req, res) => {
     return res.status(400).json({ error: 'Email is required' });
   }
 
-  const API_KEY = "82c052de0c76197c87f9c888a1c24b1e-us8"; // Set this in your .env file
+  const API_KEY = "a6c55cce99cb7ae8e1a4820ab79daf43-us8"; // Set this in your .env file
   const AUDIENCE_ID = 'a28be1907e'; // Set this in your .env file
   const DATACENTER = 'us8'; // Extract from your API key (e.g., us1, us2)
 
