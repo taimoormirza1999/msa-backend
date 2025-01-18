@@ -55,7 +55,7 @@ app.post('/create-checkout-session', async (req, res) => {
 
 // Mailchimp subscription route (new)
 app.post('/subscribe', async (req, res) => {
-  const { email, tags } = req.body; 
+  const { email } = req.body; 
 
   if (!email) {
     return res.status(400).json({ error: 'Email is required' });
