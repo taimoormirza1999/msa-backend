@@ -3,7 +3,7 @@ import dotenv from 'dotenv';
 import Stripe from 'stripe';
 import cors from 'cors';
 import bodyParser from 'body-parser';
-import fetch from 'node-fetch';
+// import fetch from 'node-fetch';
 
 dotenv.config();
 
@@ -53,23 +53,22 @@ app.post('/create-checkout-session', async (req, res) => {
   }
 });
 
+const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
+
+
 // Mailchimp subscription route (new)
-app.post('/subscribe', async (req, res) => {
-  const { email } = req.body; 
+app.post('/subscribe2', async (req, res) => {
+  const { email } = req.body;
 
   if (!email) {
     return res.status(400).json({ error: 'Email is required' });
   }
 
-  const API_KEY = "a6c55cce99cb7ae8e1a4820ab79daf43-us8"; // Set this in your .env file
-  const AUDIENCE_ID = 'a28be1907e'; // Set this in your .env file
-  const DATACENTER = 'us8'; // Extract from your API key (e.g., us1, us2)
-
-  const url = `https://${DATACENTER}.api.mailchimp.com/3.0/lists/${AUDIENCE_ID}/members`;
+  const url = `https://${process.env.DATACENTER}.api.mailchimp.com/3.0/lists/${process.env.AUDIENCE_ID}/members`;
   const options = {
     method: 'POST',
     headers: {
-      Authorization: `apikey ${API_KEY}`,
+      Authorization: `Basic ${Buffer.from(`anystring:${process.env.API_KEY}`).toString('base64')}`,
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
@@ -82,7 +81,7 @@ app.post('/subscribe', async (req, res) => {
   try {
     const response = await fetch(url, options);
     const data = await response.json();
-    if (data.status === 'subscribed') {
+    if (response.ok) {
       res.json({ message: 'Successfully subscribed!' });
     } else {
       res.status(400).json({ error: data.detail || 'Subscription failed' });
@@ -91,6 +90,7 @@ app.post('/subscribe', async (req, res) => {
     res.status(500).json({ error: 'Internal server error' });
   }
 });
+
 
 app.get('/', async (req, res) => {
   res.status(200).json({ message: "error.message" });
