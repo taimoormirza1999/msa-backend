@@ -1,0 +1,17 @@
+Run The Server Commands
+ssh root@165.227.175.117
+restart nginix:
+sudo systemctl restart nginx
+vaify erros nginix:
+sudo tail -f /var/log/nginx/error.log
+Run PM2 with file:
+pm2 start index.js --name "BACKEND"
+delete/stop pm2 process: 
+pm2 delete 4 / pm2 stop 4
+checking pm2 processes running: 
+pm2 logs 
+checking pm2 processes specific process: 
+pm2 logs index
+Create a Symbolic Link Link this file to sites-enabled:
+sudo ln -s /etc/nginx/sites-available/msa-club.com /etc/nginx/sites-enabled/
+sudo nano /etc/nginx/sites-available/msa-club.com
