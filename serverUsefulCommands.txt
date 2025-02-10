@@ -15,3 +15,5 @@ pm2 logs index
 Create a Symbolic Link Link this file to sites-enabled:
 sudo ln -s /etc/nginx/sites-available/msa-club.com /etc/nginx/sites-enabled/
 sudo nano /etc/nginx/sites-available/msa-club.com
+pm2 resurrect
+sudo reboot
