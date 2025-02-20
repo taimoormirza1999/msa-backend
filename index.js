@@ -8,7 +8,7 @@ import bodyParser from 'body-parser';
 dotenv.config();
 
 const app = express();
-const stripe = Stripe('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');
+const stripe = Stripe('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');
 
 app.use(cors());
 app.use(express.json());
